@@ -8,21 +8,21 @@
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background-color: #2d2d38;
       color: white;
       font-family: sans-serif;
-      font-size: 1.5rem;
-      text-align: center;
       transition: background-color 0.5s ease, color 0.5s ease;
       overflow: hidden;
       position: relative;
-      padding: 0 20px;
     }
 
     #text {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      text-align: center;
       z-index: 1;
       max-width: 90%;
       line-height: 1.5;
@@ -43,7 +43,14 @@
       height: 2px;
       background: white;
       border-radius: 50%;
-      opacity: 0.4;
+      opacity: 0;
+      animation: appear 3s forwards;
+      animation-delay: 2s;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; }
+      to { opacity: 0.4; }
     }
 
     .flicker {
@@ -58,14 +65,10 @@
 
     /* 📱 모바일 대응 */
     @media (max-width: 600px) {
-      body {
-        font-size: 1.1rem;
-        padding: 10vh 10px 0 10px; /* 위 여백 추가 */
-        justify-content: flex-start; /* 텍스트를 위로 */
-      }
-
       #text {
-        max-width: 95%;
+        top: 40%;
+        font-size: 1rem;
+        padding: 0 12px;
       }
     }
   </style>
@@ -112,11 +115,11 @@
       star.style.top = `${Math.random() * 100}%`;
       star.style.left = `${Math.random() * 100}%`;
 
-      // 5%만 깜빡이게
+      // 깜빡임은 랜덤하게 더 나중에 시작
       if (Math.random() < 0.05) {
         setTimeout(() => {
           star.classList.add('flicker');
-        }, Math.random() * 5000);
+        }, 6000 + Math.random() * 4000); // 6~10초 후 깜빡이기 시작
       }
 
       starContainer.appendChild(star);
