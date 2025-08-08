@@ -63,6 +63,26 @@
       100% { opacity: 0.4; transform: scale(1); }
     }
 
+    /* 🌟 글로우 효과 */
+    .glow {
+      animation: glowFlicker 1.8s infinite ease-in-out;
+    }
+
+    @keyframes glowFlicker {
+      0% {
+        opacity: 0.4;
+        box-shadow: 0 0 0px white;
+      }
+      50% {
+        opacity: 0.8;
+        box-shadow: 0 0 4px white;
+      }
+      100% {
+        opacity: 0.4;
+        box-shadow: 0 0 0px white;
+      }
+    }
+
     /* 📱 모바일 대응 */
     @media (max-width: 600px) {
       #text {
@@ -115,11 +135,16 @@
       star.style.top = `${Math.random() * 100}%`;
       star.style.left = `${Math.random() * 100}%`;
 
-      // 깜빡임은 랜덤하게 더 나중에 시작
+      // 50% 확률로 글로우 효과 부여
+      if (Math.random() < 0.5) {
+        star.classList.add('glow');
+      }
+
+      // 5% 확률로 깜빡이는 flicker 효과
       if (Math.random() < 0.05) {
         setTimeout(() => {
           star.classList.add('flicker');
-        }, 6000 + Math.random() * 4000); // 6~10초 후 깜빡이기 시작
+        }, 6000 + Math.random() * 4000);
       }
 
       starContainer.appendChild(star);
